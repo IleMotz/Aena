@@ -9,6 +9,12 @@
 		<id name="idAirport" column="idAirport">
 			<generator class="increment" />
 		</id>
+
+<!-- 		<set name=“gates”> -->
+<!-- 			<key column=“idAirport” /> -->
+<!-- 			<one-to-many class=“Gate” /> -->
+<!-- 		</set> -->
+		
 		<property name="name" />
 	</class>
 </hibernate-mapping>

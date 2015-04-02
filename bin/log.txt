@@ -21,7 +21,7 @@ Retrospectiva:
 	*.- Problemas al tratar de leer todos los elementos de una tabla.
 	*.- Cómo añadir un proyecto a git.
 
-Session 2: Abril 1, 2015: 2 horas
+Session 2: Abril 2, 2015: 2 horas
 ------------------------
 *.- Crear tabla airport (según diseño del examen)
 *.- Crear tabla gate (según diseño de examen)
@@ -34,7 +34,8 @@ Session 2: Abril 1, 2015: 2 horas
 Retrospectiva:
 	*.- Configurar el fichero SQL de forma que se pueda ejecutar desde eclipse. (done!)
 	
-Session 3: Abril ?, 2015: ? horas
+Session 3: Abril 2, 2015: 1 hora
 ------------------------
+*.- Mapear la relación 1 a n de Gate-Airport  - Relaciones uno a muchos unidireccionales
 
-Objetivo: mapear la relación Airport-Gate de forma que al cargar un Airport tenga acceso a todas sus Gates.
+

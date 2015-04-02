@@ -9,9 +9,12 @@
 		<id name="idGate" column="idGate">
 			<generator class="increment" />
 		</id>
+		
 		<property name="number" />
 		<property name="status" />
-		<property name="idAirport" />
+		
+		<many-to-one name="airport" column="idAirport"/>
+		
 	</class>
 </hibernate-mapping>
 

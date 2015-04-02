@@ -40,19 +40,6 @@ public class Aena {
 			}
 		}
 		
-//		if ("insertCoche".equalsIgnoreCase(args[0])) {
-//			er.insertCoche("1111",5);
-//		}
-//		
-//		if ("insertCamion".equalsIgnoreCase(args[0])) {
-//			er.insertCamion("2222",2,1500,2500);
-//		}
-//		
-//		if ("retrieveCoche".equalsIgnoreCase(args[0])) {
-//			er.retrieveCoche(args[1]);
-//		}
-//		System.out.println("** main / HibernateUtil.getSessionFactory().isClosed() = " );
-//		System.out.println("** main / HibernateUtil.getSessionFactory().isClosed() = " + HibernateUtil.getSessionFactory().isClosed());
 		HibernateUtil.getSessionFactory().close();
 	}
 
@@ -73,9 +60,6 @@ public class Aena {
 		} catch (Exception e) {
 				System.out.println("\t**ERROR retrieveAirplane **: " + e.getMessage());
 		}
-		
-		
-
 		
 		session.getTransaction().commit();	
 	}
@@ -121,9 +105,12 @@ public class Aena {
 		
 		List listGates = (List) criteria.list();
 		System.out.println("\tgates #" + listGates.size());
-		
+		Gate gate;
 		for (int cont = 0; cont < listGates.size(); cont++) {
-			System.out.println("\t(" + cont + ") " + listGates.get(cont).toString());	
+			//System.out.println("\t(" + cont + ") " + listGates.get(cont).toString());
+			gate = (Gate) listGates.get(cont);
+			System.out.println("\t(" + cont + ") " + gate.getAirport().toString());
+			System.out.println("\t(" + cont + ") " + gate.toString());
 		}
 		session.getTransaction().commit();
 	}

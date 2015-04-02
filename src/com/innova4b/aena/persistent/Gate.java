@@ -7,9 +7,10 @@ public class Gate implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long idGate;
-	protected int number;
-	protected String status;
-	protected Long idAirport;
+	private int number;
+	private String status;
+	private Long idAirport;
+	private Airport airport;
 	
 	public Gate(){}
 
@@ -21,6 +22,9 @@ public class Gate implements Serializable {
 	public void setStatus(String status) {this.status = status;}
 	public Long getIdAirport() {return idAirport;}
 	public void setIdAirport(Long idAirport) {this.idAirport = idAirport;}
+	public Airport getAirport() {return airport;}
+	public void setAirport(Airport airport) {this.airport = airport;}
+
 	@Override
 	public String toString() {return "Gate [idGate=" + idGate + ", number=" + number + ", status=" + status + ", idAirport=" + idAirport + "]";}	
 }
