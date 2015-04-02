@@ -1,0 +1,40 @@
+
+NOTA: Se ha intentado realizar la prçactica bajo los principios de agilismo:
+		*.- producto incremental.
+		*.- añadiendo valor / funcionalidad.
+		*.- en cada 'sprint' se ha implementado lo mínimo.
+
+Session 1: Abril 1, 2015: 3 horas.
+------------------------
+*.- Crear proyecto: java aplication.
+*.- Crear bbdd.
+*.- Crear tabla airplane ()
+		tabla mínima para probar la conexión con hibernate / BBDD.
+		se insertan dos registros de forma manual via SQL para las pruebas
+*.- Crear objeto Airplane persistente
+*.- Mapear objeto Avion 
+*.- Implementar: obtener un avion específico 'retrieveAirplane(id)'
+*.- implementar: obtener lista de aviones 'retrieveAllAirplanes'
+*.- Añadir proyecto a Git.
+
+Retrospectiva:
+	*.- Problemas al tratar de leer todos los elementos de una tabla.
+	*.- Cómo añadir un proyecto a git.
+
+Session 2: Abril 1, 2015: 2 horas
+------------------------
+*.- Crear tabla airport (según diseño del examen)
+*.- Crear tabla gate (según diseño de examen)
+*.- Modificar tabla/objeto Airport: campos en ingles (matricula -> plateNumber)
+*.- Crear objeto Airport.
+*.- Mapear objeto Airport.!
+*.- Crear objeto Gate.
+*.- Mapear objeto Gate.
+
+Retrospectiva:
+	*.- Configurar el fichero SQL de forma que se pueda ejecutar desde eclipse. (done!)
+	
+Session 3: Abril ?, 2015: ? horas
+------------------------
+
+Objetivo: mapear la relación Airport-Gate de forma que al cargar un Airport tenga acceso a todas sus Gates.

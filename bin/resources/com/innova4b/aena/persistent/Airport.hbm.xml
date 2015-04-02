@@ -5,11 +5,11 @@
 
 <hibernate-mapping package="com.innova4b.aena.persistent">
 
-	<class name="Airplane" table="airplane">
-		<id name="idAirplane" column="idAirplane">
+	<class name="Airport" table="airport">
+		<id name="idAirport" column="idAirport">
 			<generator class="increment" />
 		</id>
-		<property name="plateNumber" />		
+		<property name="name" />
 	</class>
 </hibernate-mapping>
 

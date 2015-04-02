@@ -8,6 +8,8 @@ import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 
 import com.innova4b.aena.persistent.Airplane;
+import com.innova4b.aena.persistent.Airport;
+import com.innova4b.aena.persistent.Gate;
 
 public class Aena {
 
@@ -29,6 +31,13 @@ public class Aena {
 				aena.retrieveAirplane(args[1]);
 			}
 			
+			if ((args.length == 1) && ("listAllAirports".equalsIgnoreCase(args[0]))) {
+				aena.listAllAirports();
+			}
+			
+			if ((args.length == 1) && ("listAllGates".equalsIgnoreCase(args[0]))) {
+				aena.listAllGates();
+			}
 		}
 		
 //		if ("insertCoche".equalsIgnoreCase(args[0])) {
@@ -58,7 +67,7 @@ public class Aena {
 		try {
 			Airplane airplane = (Airplane) session.load(Airplane.class, longId);
 				System.out.println("\tairplane " + airplane.toString());
-				System.out.println("\tairplane " + airplane.getMatricula());
+				System.out.println("\tairplane " + airplane.getPlateNumber());
 		} catch (ObjectNotFoundException onfe) {
 				System.out.println("\tairplane with id =" + id + " not found");
 		} catch (Exception e) {
@@ -74,13 +83,8 @@ public class Aena {
 	private void listAllAirplanes() {
 		System.out.println("** listAllAirplanes");
 		
-		Long id = Long.parseLong("1");
-		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		
-		
 		session.beginTransaction();
-
 		Criteria criteria = session.createCriteria(Airplane.class);
 		
 		List listAirplanes = (List) criteria.list();
@@ -89,61 +93,40 @@ public class Aena {
 		for (int cont = 0; cont < listAirplanes.size(); cont++) {
 			System.out.println("\t(" + cont + ") " + listAirplanes.get(cont).toString());	
 		}
-			
 		session.getTransaction().commit();
-		
 	}
 
-//	private void retrieveCoche(String id) {
-//		
-//		Long miId = Long.parseLong(id);
-//		
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//			
-//		session.beginTransaction();
-//
-//		Vehiculo coche = (Vehiculo) session.load(Vehiculo.class, miId);
-//		System.out.println("coche id:" + coche.getIdVehiculo());
-//		System.out.println("coche id:" + coche.toString());	
-//		session.getTransaction().commit();
-//		
-//	}
-//
-//	private void insertCoche(String matricula, int numeroPlazas) {
-//		
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//		
-//		Coche coche = new Coche();
-//		coche.setMatricula(matricula);
-//		coche.setNumeroPlazas(numeroPlazas);
-//		System.out.println("coche id:" + coche.getIdVehiculo());
-//		
-//		session.beginTransaction();
-//		
-//		session.persist(coche);
-//		
-//		System.out.println("coche id:" + coche.getIdVehiculo());
-//		
-//		session.getTransaction().commit();
-//	}
-//
-//	private void insertCamion(String matricula, int numeroPlazas, float tara, float mna) {
-//		
-//		Camion camion = new Camion();
-//		camion.setMatricula(matricula);
-//		camion.setNumeroPlazas(numeroPlazas);
-//		camion.setMna(mna);
-//		camion.setTara(tara);
-//		System.out.println("camion id:" + camion.getIdVehiculo());
-//		
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//		
-//		session.beginTransaction();
-//		session.persist(camion);
-//		
-//		System.out.println("coche id:" + camion.getIdVehiculo());
-//		session.getTransaction().commit();
-//	}
+	private void listAllAirports() {
+		System.out.println("** listAllAirports");
+		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		Criteria criteria = session.createCriteria(Airport.class);
+		
+		List listAirports = (List) criteria.list();
+		System.out.println("\tairports #" + listAirports.size());
+		
+		for (int cont = 0; cont < listAirports.size(); cont++) {
+			System.out.println("\t(" + cont + ") " + listAirports.get(cont).toString());	
+		}
+		session.getTransaction().commit();
+	}
+	
+	private void listAllGates() {
+		System.out.println("** listAllGates");
+		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		Criteria criteria = session.createCriteria(Gate.class);
+		
+		List listGates = (List) criteria.list();
+		System.out.println("\tgates #" + listGates.size());
+		
+		for (int cont = 0; cont < listGates.size(); cont++) {
+			System.out.println("\t(" + cont + ") " + listGates.get(cont).toString());	
+		}
+		session.getTransaction().commit();
+	}
 	
 }
 

@@ -9,7 +9,7 @@
 		<id name="idAirplane" column="idAirplane">
 			<generator class="increment" />
 		</id>
-		<property name="matricula" />		
+		<property name="plateNumber" />		
 	</class>
 </hibernate-mapping>
 

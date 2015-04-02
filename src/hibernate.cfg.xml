@@ -25,6 +25,8 @@
 		</property>
 		
 		<mapping resource="resources/com/innova4b/aena/persistent/Airplane.hbm.xml"/>
+		<mapping resource="resources/com/innova4b/aena/persistent/Airport.hbm.xml"/>
+		<mapping resource="resources/com/innova4b/aena/persistent/Gate.hbm.xml"/>
 
 	</session-factory>
 </hibernate-configuration>
