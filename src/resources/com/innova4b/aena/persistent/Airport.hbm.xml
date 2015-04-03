@@ -6,17 +6,20 @@
 <hibernate-mapping package="com.innova4b.aena.persistent">
 
 	<class name="Airport" table="airport">
+		
 		<id name="idAirport" column="idAirport">
 			<generator class="increment" />
-			</id>
+		</id>
+	
+        <set name="gates" table="gate" fetch="select">
+            <key>
+                <column name="idAirport" not-null="true"></column>
+            </key>
+            <one-to-many class="Gate"/>
+        </set>
 	
 		<property name="name" />
-		
-		<set name="gates" >
-			<key column="idAirport" />
-			<one-to-many class="Gate" />
-		</set>
-		
+				
 	</class>
 </hibernate-mapping>
 

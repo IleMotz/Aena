@@ -14,7 +14,7 @@
 		<property name="idAirport" />
 		<property name="number" />
 		<property name="status" />
-		
+			
 	</class>
 	
 </hibernate-mapping>

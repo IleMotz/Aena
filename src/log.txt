@@ -27,14 +27,14 @@ Session 2: Abril 2, 2015: 2 horas
 *.- Crear tabla gate (según diseño de examen)
 *.- Modificar tabla/objeto Airport: campos en ingles (matricula -> plateNumber)
 *.- Crear objeto Airport.
-*.- Mapear objeto Airport.!
+*.- Mapear objeto Airport.
 *.- Crear objeto Gate.
 *.- Mapear objeto Gate.
 
 Retrospectiva:
 	*.- Configurar el fichero SQL de forma que se pueda ejecutar desde eclipse. (done!)
 	
-Session 3: Abril 2, 2015: 2 hora
+Session 3: Abril 2, 2015: 2 horas
 ------------------------
 *.- Mapear la relación 1 a n de Gate-Airport  - Relaciones uno a muchos unidireccionales
 
@@ -44,6 +44,16 @@ BLOQUEO:
 
 Retrospectiva:
 	*.- mucho OJO con las comillas dobles al hace copy/paste desde pdf, las convierte en comillas inclinada y dan error!
+	*.- problemas con los permisos de smartgit.
+	
+	ession 3: Abril 2, 2015: 3 horas
+------------------------
+*.- Mapear la relación 1 a n de Gate-Airport  - Relaciones uno a muchos unidireccionales
+
+BLOQUEO RESUELTO: 
+	*.- el problema estaba la definir las 'gates'. No podían ser List, tienen que ser Set
+
+Retrospectiva:
 	*.- problemas con los permisos de smartgit.
 	
 	

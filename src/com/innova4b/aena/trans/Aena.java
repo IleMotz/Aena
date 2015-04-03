@@ -92,7 +92,8 @@ public class Aena {
 		Airport airport;
 		for (int cont = 0; cont < listAirports.size(); cont++) {
 			airport = (Airport) listAirports.get(cont);
-			System.out.println("\t(" + cont + ") " + airport.getName());	
+			System.out.println("\t(" + cont + ") " + airport.toString());
+			System.out.println("\t(" + cont + ") " + airport.getGates().toString());
 		}
 		session.getTransaction().commit();
 	}
@@ -106,8 +107,10 @@ public class Aena {
 		
 		List<Gate> listGates = criteria.list();
 		System.out.println("\tgates #" + listGates.size());
+		Gate gate;
 		for (int cont = 0; cont < listGates.size(); cont++) {
-			System.out.println("\t(" + cont + ") " + listGates.get(cont).toString());
+			gate = (Gate) listGates.get(cont);
+			System.out.println("\t(" + cont + ") " +  gate.toString());
 		}
 		session.getTransaction().commit();
 	}

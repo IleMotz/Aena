@@ -2,7 +2,9 @@ package com.innova4b.aena.persistent;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Airport implements Serializable {
 
@@ -10,7 +12,7 @@ public class Airport implements Serializable {
 	
 	private Long idAirport;
 	private String name;
-	private List gates = new ArrayList();
+	private Set<Gate> gates = new HashSet<Gate>();
 	
 	public Airport(){}
 
@@ -18,8 +20,8 @@ public class Airport implements Serializable {
 	public void setIdAirport(Long idAirport) {this.idAirport = idAirport;}
 	public String getName() {return name;}
 	public void setName(String name) {this.name = name;}
-	public List getGates() {return gates;}
-	public void setGates(List gates) {this.gates = gates;}
+	public Set<Gate> getGates() {return gates;}
+	public void setGates(Set<Gate> gates) {this.gates = gates;}
 
 	@Override
 	public String toString() {return "Airport [idAirport=" + idAirport + ", name=" + name + "]";}
