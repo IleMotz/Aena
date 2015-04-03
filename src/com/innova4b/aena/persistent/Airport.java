@@ -1,6 +1,7 @@
 package com.innova4b.aena.persistent;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Airport implements Serializable {
@@ -9,7 +10,7 @@ public class Airport implements Serializable {
 	
 	private Long idAirport;
 	private String name;
-	private List gates;
+	private List gates = new ArrayList();
 	
 	public Airport(){}
 

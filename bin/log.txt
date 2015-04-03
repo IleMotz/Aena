@@ -34,8 +34,16 @@ Session 2: Abril 2, 2015: 2 horas
 Retrospectiva:
 	*.- Configurar el fichero SQL de forma que se pueda ejecutar desde eclipse. (done!)
 	
-Session 3: Abril 2, 2015: 1 hora
+Session 3: Abril 2, 2015: 2 hora
 ------------------------
 *.- Mapear la relación 1 a n de Gate-Airport  - Relaciones uno a muchos unidireccionales
 
+BLOQUEO: 
+	*.- no consigo hacer el set de la propiedad 'gates' para acceder a la lista de gates de un Airport.
+	*.- es algo relacionado con el tipo 'java.util.List', pero no consigo darle la vuelta.
 
+Retrospectiva:
+	*.- mucho OJO con las comillas dobles al hace copy/paste desde pdf, las convierte en comillas inclinada y dan error!
+	*.- problemas con los permisos de smartgit.
+	
+	
