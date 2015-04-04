@@ -2,6 +2,9 @@
 package com.innova4b.aena.trans;
 
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.hibernate.Criteria;
 import org.hibernate.ObjectNotFoundException;
@@ -35,12 +38,35 @@ public class Aena {
 				aena.listAllAirports();
 			}
 			
+			if ((args.length == 2) && ("addAirport".equalsIgnoreCase(args[0]))) {
+				aena.addAirport(args[1]);
+			}
+			
 			if ((args.length == 1) && ("listAllGates".equalsIgnoreCase(args[0]))) {
 				aena.listAllGates();
 			}
 		}
 		
 		HibernateUtil.getSessionFactory().close();
+	}
+
+	private void addAirport(String name) {
+		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		Airport airport = new Airport();
+		airport.setName(name);
+		
+		session.save(airport);
+		
+		Gate g1 = new Gate();
+		g1.setNumber(1);
+		g1.setStatus("libre");
+		g1.setIdAirport(airport.getIdAirport());
+		session.save(g1);
+		
+		session.getTransaction().commit();		
+		
 	}
 
 	private void retrieveAirplane(String id) {
@@ -86,17 +112,18 @@ public class Aena {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		Criteria criteria = session.createCriteria(Airport.class);
-		
-		List listAirports = (List) criteria.list();
-		System.out.println("\tairports #" + listAirports.size());
-		Airport airport;
-		for (int cont = 0; cont < listAirports.size(); cont++) {
-			airport = (Airport) listAirports.get(cont);
-			System.out.println("\t(" + cont + ") " + airport.toString());
-			System.out.println("\t(" + cont + ") " + airport.getGates().toString());
-		}
+		List<Airport> airports = (List<Airport>) criteria.list();
 		session.getTransaction().commit();
-	}
+		
+		System.out.println("\tNum airports # " + airports.size());
+		for (Airport airport : airports) {
+			System.out.println("\t\t" + airport.getName());
+			System.out.println("\t\tNum gates = " + airport.getGates().size());
+			System.out.println("\t\tNum gates available = " + airport.getNumGatesAvailable() + " ## " + airport.getGatesAvailable());
+			System.out.println("\t\tNum gates no available = " + airport.getNumGatesNoAvailable() + " ## " + airport.getGatesNoAvailable());
+			System.out.println("");
+		}		
+	}	
 	
 	private void listAllGates() {
 		System.out.println("** listAllGates");
@@ -104,15 +131,11 @@ public class Aena {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		Criteria criteria = session.createCriteria(Gate.class);
-		
-		List<Gate> listGates = criteria.list();
-		System.out.println("\tgates #" + listGates.size());
-		Gate gate;
-		for (int cont = 0; cont < listGates.size(); cont++) {
-			gate = (Gate) listGates.get(cont);
-			System.out.println("\t(" + cont + ") " +  gate.toString());
-		}
+		List<Gate> gates = (List<Gate>) criteria.list();
 		session.getTransaction().commit();
+		
+		System.out.println("\tgates #" + gates.size());
+		for(Gate g : gates) {System.out.println("\t" +  g.toString());}
 	}
 	
 }

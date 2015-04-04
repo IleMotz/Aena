@@ -11,13 +11,13 @@
 			<generator class="increment" />
 		</id>
 	
-        <set name="gates" table="gate" fetch="select">
+        <set name="gates" table="gate" lazy="false">
             <key>
                 <column name="idAirport" not-null="true"></column>
             </key>
             <one-to-many class="Gate"/>
         </set>
-	
+
 		<property name="name" />
 				
 	</class>

@@ -46,7 +46,7 @@ Retrospectiva:
 	*.- mucho OJO con las comillas dobles al hace copy/paste desde pdf, las convierte en comillas inclinada y dan error!
 	*.- problemas con los permisos de smartgit.
 	
-	ession 3: Abril 2, 2015: 3 horas
+Session 3: Abril 2, 2015: 3 horas
 ------------------------
 *.- Mapear la relación 1 a n de Gate-Airport  - Relaciones uno a muchos unidireccionales
 
@@ -56,4 +56,12 @@ BLOQUEO RESUELTO:
 Retrospectiva:
 	*.- problemas con los permisos de smartgit.
 	
+Session 3: Abril 2, 2015: 3 horas
+------------------------
+*.- Añadir aeropuerto con puerta de embarque!
+
+Retrospectiva:
+	*.- Primero añadir Aeropuerto y luego las puertas!
+	
+OJO: Comprobar al añadir que no existe ya!
 	

@@ -25,11 +25,10 @@ public class Gate implements Serializable {
 	public void setStatus(String status) {this.status = status;}
 	public Airport getAirport() {return airport;}
 	public void setAirport(Airport airport) {this.airport = airport;}
-
+	
 	@Override
 	public String toString() {
 		return "Gate [idAirport=" + idAirport + ", idGate=" + idGate + ", number=" + number + ", status=" + status + "]";
 	}
-
-
+	
 }
