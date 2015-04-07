@@ -63,5 +63,17 @@ Session 3: Abril 2, 2015: 3 horas
 Retrospectiva:
 	*.- Primero añadir Aeropuerto y luego las puertas!
 	
-OJO: Comprobar al añadir que no existe ya!
+
+Session 7: Abril 2, 2015: 3 horas
+------------------------
+*.- Modificar el mapping airport-gates de 'set' a 'bag' apara obtener una List de gates en vez de un Set de gates. 
+
+Retrospectiva:
+	*.- No se pude salvar el airport.gates de 'un golpe'? Hay que recorrer la lista de gates para salvarla??
+	
+Session ?: Abril 2, 2015: 3 horas
+------------------------
+
+*.- añadir puertas a un airport dado: buscar el airport y añadirle x gates.
+*.- modificar el fichero sql para que si no existe la database Aena la cree.	
 	

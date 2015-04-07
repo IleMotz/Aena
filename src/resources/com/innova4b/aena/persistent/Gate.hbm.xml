@@ -11,8 +11,12 @@
 			<generator class="increment" />
 		</id>
 		
-		<property name="idAirport" />
+<!-- 		<property name="idAirport" insert="false" update="false" /> -->
+<!-- 		<property name="number" insert="false" update="false" /> -->
+		
+		<property name="idAirport"  />
 		<property name="number" />
+		
 		<property name="status" />
 			
 	</class>
