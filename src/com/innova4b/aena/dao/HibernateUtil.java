@@ -1,5 +1,5 @@
 
-package com.innova4b.aena.trans;
+package com.innova4b.aena.dao;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

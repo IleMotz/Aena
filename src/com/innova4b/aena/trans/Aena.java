@@ -8,6 +8,8 @@ import org.hibernate.Criteria;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 
+import com.innova4b.aena.dao.AirportDAO;
+import com.innova4b.aena.dao.HibernateUtil;
 import com.innova4b.aena.persistent.Airplane;
 import com.innova4b.aena.persistent.Airport;
 import com.innova4b.aena.persistent.Gate;
@@ -36,6 +38,11 @@ public class Aena {
 				aena.listAllAirports();
 			}
 			
+			if ((args.length == 2) && ("listAirportByName".equalsIgnoreCase(args[0]))) {
+				System.out.println("args[1]:" + args[1]);
+				aena.listAirportByName(args[1]);
+			}
+			
 			if ((args.length == 2) && ("addAirport".equalsIgnoreCase(args[0]))) {
 				aena.addAirport(args[1]);
 			}
@@ -44,17 +51,58 @@ public class Aena {
 				aena.listAllGates();
 			}
 			
-			if ((args.length == 1) && ("addGateToAirport".equalsIgnoreCase(args[0]))) {
-				aena.addGateToAirport();
+			if ((args.length == 2) && ("addGateToAirport".equalsIgnoreCase(args[0]))) {
+				aena.addGateToAirport(args[1]);
+			}
+			
+			if ((args.length == 3) && ("changeGateStatusFromAirport".equalsIgnoreCase(args[0]))) {
+				aena.changeGateStatusFromAirport(args[1], args[2]);
 			}
 		}
 		
 		HibernateUtil.getSessionFactory().close();
 	}
 
-	private void addGateToAirport() {
-		
-		
+	private void changeGateStatusFromAirport(String airportName, String gateNumber) {
+		AirportDAO airportDAO = new AirportDAO();
+		Airport airport = airportDAO.getAirportByName(airportName);
+		if (airport != null) {
+			for (Gate gate : airport.getGates()) {
+				if (gate.getNumber() == Integer.parseInt(gateNumber)) {
+					if ("libre".equalsIgnoreCase(gate.getStatus())) {
+						gate.setStatus("ocupada");
+					} else {
+						gate.setStatus("libre");
+					}
+					break;
+				}
+			}
+			airportDAO.updateAirport(airport);
+		}	
+	}
+
+	private void listAirportByName(String name) {
+		AirportDAO airportDAO = new AirportDAO();
+		Airport airport = airportDAO.getAirportByName(name);
+		if (airport != null) {
+			System.out.println(airport.toString());
+			System.out.println("\t\tNum gates available = " + airport.getNumGatesAvailable() + " ## " + airport.getGatesAvailable());
+			System.out.println("\t\tNum gates no available = " + airport.getNumGatesNoAvailable() + " ## " + airport.getGatesNoAvailable());
+		}
+	}
+
+	private void addGateToAirport(String name) {
+		AirportDAO airportDAO = new AirportDAO();
+		Airport airport = airportDAO.getAirportByName(name);
+		if (airport != null) {
+			Gate newgate = new Gate();
+			newgate.setIdAirport(airport.getIdAirport());
+			newgate.setStatus("libre");
+			newgate.setNumber(airport.getGates().size() + 1);
+			if (airport.getGates().add(newgate)) {
+				airportDAO.updateAirport(airport);
+			}
+		}
 	}
 
 	private void addAirport(String name) {
