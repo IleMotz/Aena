@@ -9,7 +9,20 @@
 		<id name="idAirplane" column="idAirplane">
 			<generator class="increment" />
 		</id>
-		<property name="plateNumber" />		
+
+		<bag name="tickets" table="ticket" inverse="true" lazy="false" >
+			<key>
+				<column name="idAirplane" not-null="true">
+				</column>
+			</key>
+			<one-to-many class="Ticket"></one-to-many>
+		</bag>
+		
+		<property name="plateNumber" />
+		<property name="numSeatsBooked" />
+		<property name="numSeatsConfirmed" />
+		<property name="totalNumSeatsToBook" />
+		<property name="totalNumSeats" />
 	</class>
 </hibernate-mapping>
 

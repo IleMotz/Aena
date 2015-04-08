@@ -46,7 +46,7 @@ Retrospectiva:
 	*.- mucho OJO con las comillas dobles al hace copy/paste desde pdf, las convierte en comillas inclinada y dan error!
 	*.- problemas con los permisos de smartgit.
 	
-Session 3: Abril 2, 2015: 3 horas
+Session 4: Abril 2, 2015: 3 horas
 ------------------------
 *.- Mapear la relación 1 a n de Gate-Airport  - Relaciones uno a muchos unidireccionales
 
@@ -56,7 +56,7 @@ BLOQUEO RESUELTO:
 Retrospectiva:
 	*.- problemas con los permisos de smartgit.
 	
-Session 3: Abril 2, 2015: 3 horas
+Session 5: Abril 2, 2015: 3 horas
 ------------------------
 *.- Añadir aeropuerto con puerta de embarque!
 
@@ -64,16 +64,34 @@ Retrospectiva:
 	*.- Primero añadir Aeropuerto y luego las puertas!
 	
 
-Session 7: Abril 2, 2015: 3 horas
+Session 6: Abril 7, 2015: 3 horas
 ------------------------
 *.- Modificar el mapping airport-gates de 'set' a 'bag' apara obtener una List de gates en vez de un Set de gates. 
 
 Retrospectiva:
 	*.- No se pude salvar el airport.gates de 'un golpe'? Hay que recorrer la lista de gates para salvarla??
 	
-Session ?: Abril 2, 2015: 3 horas
+Session 7: Abril 7, 2015: 3 horas
 ------------------------
 
 *.- añadir puertas a un airport dado: buscar el airport y añadirle x gates.
 *.- modificar el fichero sql para que si no existe la database Aena la cree.	
 	
+Session 8: Abril 8, 2015: 3 horas
+------------------------
+
+*.- alter table airplane: add columns totalNumSeats, numSeatsConfirmed, totalNumSeatsToBook, numSeatsBooked
+*.- alter hibernate mapping.
+*.- alter pojo Airplane.
+*.- Implementar listAirplaneByPlateNumber.
+*.- Implementar setAirplaneTotalNumSeats.
+*.- Nueva tabla ticket.
+*.- Crear mapping hibernate Ticket.
+*.- Añadir mapping a la configuración.
+
+Session 8: Abril 9, 2015: 1.5 horas
+------------------------
+*.- Implementar bookSeat & confirmSeat.
+
+THINGS TO DO:
+	*.- poner valores por defecto en las tablas?	

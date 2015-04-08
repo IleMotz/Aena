@@ -34,7 +34,7 @@ public class AirportDAO {
 		return airport;
 	}
 
-	public void updateAirport(Airport airport) {
+	public void update(Airport airport) {
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();

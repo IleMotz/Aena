@@ -22,7 +22,7 @@ public class Airport implements Serializable {
 	public Airport(){}
 
 	public Long getIdAirport() {return idAirport;}
-	public void setIdAirport(Long idAirport) {this.idAirport = idAirport;}
+	protected void setIdAirport(Long idAirport) {this.idAirport = idAirport;}
 	public String getName() {return name;}
 	public void setName(String name) {this.name = name;}
 
