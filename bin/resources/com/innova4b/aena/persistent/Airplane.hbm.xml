@@ -10,12 +10,12 @@
 			<generator class="increment" />
 		</id>
 
-		<bag name="tickets" table="ticket" inverse="true" lazy="false" >
+		<bag name="boardingpasses" table="boardingpass" cascade="all-delete-orphan" inverse="false" lazy="false" >
 			<key>
 				<column name="idAirplane" not-null="true">
 				</column>
 			</key>
-			<one-to-many class="Ticket"></one-to-many>
+			<one-to-many class="Boardingpass"></one-to-many>
 		</bag>
 		
 		<property name="plateNumber" />

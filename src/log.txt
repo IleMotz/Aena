@@ -89,9 +89,14 @@ Session 8: Abril 8, 2015: 3 horas
 *.- Crear mapping hibernate Ticket.
 *.- Añadir mapping a la configuración.
 
-Session 8: Abril 9, 2015: 1.5 horas
+Session 9: Abril 9, 2015: 1.5 horas
 ------------------------
 *.- Implementar bookSeat & confirmSeat.
+
+Session 10: Abril 9, 2015: 3.0 horas
+------------------------
+*.- DONE!!!: Conseguir que al persitir un objeto 'padre', persistan sus 'hijos'. Y que si el padre no tiene hijos éstos se borren 'cascade="all-delete-orphan"'
+*.- Renombrar todo lo referente a airplane-boardingpass y testing
 
 THINGS TO DO:
 	*.- poner valores por defecto en las tablas?	

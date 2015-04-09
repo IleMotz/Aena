@@ -54,12 +54,12 @@ FOREIGN KEY(idAirport) REFERENCES airport(idAirport)
 	ALTER TABLE airplane ADD COLUMN numSeatsConfirmed int NOT NULL AFTER plateNumber;
 	ALTER TABLE airplane ADD COLUMN numSeatsBooked int NOT NULL AFTER plateNumber;
  		
-CREATE TABLE ticket (
-idTicket int,
+CREATE TABLE boardingpass (
+idboardingpass int,
 idAirplane int,
 code varchar(45) default '',
 name varchar(45) default '',
 boarded boolean default false,
-PRIMARY KEY(idTicket),
+PRIMARY KEY(idboardingpass),
 FOREIGN KEY(idAirplane) REFERENCES airplane(idAirplane)
  );

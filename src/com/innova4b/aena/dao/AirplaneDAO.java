@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import com.innova4b.aena.persistent.Airplane;
-import com.innova4b.aena.persistent.Ticket;
 
 public class AirplaneDAO {
 
@@ -35,14 +34,17 @@ public class AirplaneDAO {
 	}
 
 	public void update(Airplane airplane) {
-		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		session.merge(airplane);
-		for (Ticket ticket : airplane.getTickets()) {
-			System.out.println("Saving ticket:" + ticket.toString());
-			session.merge(ticket);
-		}
 		session.getTransaction().commit();	
 	}
+	
+	public void delete(Airplane airplane) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		session.delete(airplane);
+		session.getTransaction().commit();	
+	}
+	
 }

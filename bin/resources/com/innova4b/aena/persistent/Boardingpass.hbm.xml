@@ -4,8 +4,8 @@
 	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="com.innova4b.aena.persistent">
-	<class name="Ticket" table="ticket">
-		<id name="idTicket" column="idTicket">
+	<class name="Boardingpass" table="boardingpass">
+		<id name="idBoardingpass" column="idBoardingpass">
 			<generator class="increment" />
 		</id>
 		<property name="idAirplane" />

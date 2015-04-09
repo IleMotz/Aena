@@ -2,20 +2,20 @@ package com.innova4b.aena.persistent;
 
 import java.io.Serializable;
 
-public class Ticket implements Serializable {
+public class Boardingpass implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long idTicket;
+	private Long idBoardingpass;
 	private Long idAirplane;
 	private String code;
 	private String name;
 	private boolean boarded;
 			
-	public Ticket(){}
+	public Boardingpass(){}
 
-	public Long getIdTicket() {return idTicket;}
-	protected void setIdTicket(Long idTicket) {this.idTicket = idTicket;}
+	public Long getIdBoardingpass() {return idBoardingpass;}
+	protected void setIdBoardingpass(Long idBoardingpass) {this.idBoardingpass = idBoardingpass;}
 	public Long getIdAirplane() {return idAirplane;}
 	public void setIdAirplane(Long idAirplane) {this.idAirplane = idAirplane;}
 	public String getCode() {return code;}
@@ -27,7 +27,7 @@ public class Ticket implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Ticket [idTicket=" + idTicket + ", idAirplane=" + idAirplane
+		return "BoardingPass [idBoardingpass=" + idBoardingpass + ", idAirplane=" + idAirplane
 				+ ", code=" + code + ", name=" + name + ", boarded=" + boarded
 				+ "]";
 	}
