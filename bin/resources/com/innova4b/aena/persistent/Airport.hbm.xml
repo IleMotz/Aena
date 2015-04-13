@@ -19,7 +19,7 @@
 <!--         </set> -->
 
 <!--         <list name="gates" access="field" cascade="all"> -->
-		<bag name="gates" table="gate" inverse="true" lazy="false" >
+		<bag name="gates" table="gate" cascade="all-delete-orphan" inverse="false" lazy="false" >
 			<key>
 				<column name="idAirport" not-null="true">
 				</column>

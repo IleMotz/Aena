@@ -9,7 +9,9 @@ import org.hibernate.Session;
 
 import com.innova4b.aena.dao.AirplaneDAO;
 import com.innova4b.aena.dao.AirportDAO;
-import com.innova4b.aena.dao.HibernateUtil;
+import com.innova4b.aena.daoImpl.AirportDAOImpl;
+import com.innova4b.aena.daoImpl.HibernateUtil;
+import com.innova4b.aena.daoImpl.AirplaneDAOImpl;
 import com.innova4b.aena.persistent.Airplane;
 import com.innova4b.aena.persistent.Airport;
 import com.innova4b.aena.persistent.Boardingpass;
@@ -71,57 +73,72 @@ public class Aena {
 			//
 			// Airports
 			//
+
 			if ((args.length == 1)
-					&& ("listAllAirports".equalsIgnoreCase(args[0]))) {
-				aena.listAllAirports();
+					&& ("getAllAirports".equalsIgnoreCase(args[0]))) {
+				aena.getAllAirports();
 			}
 
 			if ((args.length == 2)
-					&& ("listAirportByName".equalsIgnoreCase(args[0]))) {
-				aena.listAirportByName(args[1]);
+					&& ("getAirportById".equalsIgnoreCase(args[0]))) {
+				aena.getAirportById(args[1]);
 			}
 
-			if ((args.length == 2) && ("addAirport".equalsIgnoreCase(args[0]))) {
-				aena.addAirport(args[1]);
+			if ((args.length == 2) && ("newAirport".equalsIgnoreCase(args[0]))) {
+				aena.newAirport(args[1]);
+			}
+			
+			if ((args.length == 2) && ("deleteAirport".equalsIgnoreCase(args[0]))) {
+				aena.deleteAirport(args[1]);
 			}
 
 			if ((args.length == 2)
 					&& ("addGateToAirport".equalsIgnoreCase(args[0]))) {
 				aena.addGateToAirport(args[1]);
 			}
+			
+			if ((args.length == 3)
+					&& ("deleteGateFromAirport".equalsIgnoreCase(args[0]))) {
+				aena.deleteGateFromAirport(args[1], args[2]);
+			}
 
 			if ((args.length == 3)
 					&& ("changeGateStatusFromAirport".equalsIgnoreCase(args[0]))) {
 				aena.changeGateStatusFromAirport(args[1], args[2]);
 			}
-
-			// Gates
-			if ((args.length == 1)
-					&& ("listAllGates".equalsIgnoreCase(args[0]))) {
-				aena.listAllGates();
-			}
 		}
-
-		HibernateUtil.getSessionFactory().close();
 	}
 
 	private void confirmSeatAtAirplaneById(String plateNumber) {
-		AirplaneDAO airplaneDAO = new AirplaneDAO();
+		AirplaneDAO airplaneDAO = new AirplaneDAOImpl();
 		Airplane airplane = airplaneDAO.getById(plateNumber);
 		if (airplane != null) {
+			;
 			if (airplane.getTotalNumSeats() > airplane.getNumSeatsConfirmed()) {
+				if (airplane.getBoardingpasses().size() == 0) {
+					System.out.println("No tickets booked!");
+					System.out.println(airplane.toString());
+					return;
+				}
+				boolean boarded = false;
 				for (Boardingpass ticket : airplane.getBoardingpasses()) {
 					if (!ticket.getBoarded()) {
-						ticket.setBoarded(true);
+						boarded = true;
+						ticket.setBoarded(boarded);
 						airplane.setNumSeatsConfirmed(airplane
 								.getNumSeatsConfirmed() + 1);
 						break;
 					}
 				}
-				airplaneDAO.update(airplane);
-				System.out.println("Passenger boarded!");
+				if (boarded) {
+					airplaneDAO.update(airplane);
+					System.out.println("Passenger boarded!");
+				} else {
+					System.out.println("No ticket available to confirm!");
+					System.out.println(airplane.toString());
+				}
 			} else {
-				System.out.println("No ticket available to confirm!");
+				System.out.println("all seats boarded!");
 				System.out.println(airplane.toString());
 			}
 		} else {
@@ -131,7 +148,7 @@ public class Aena {
 	}
 
 	private void bookSeatAtAirplaneById(String plateNumber) {
-		AirplaneDAO airplaneDAO = new AirplaneDAO();
+		AirplaneDAO airplaneDAO = new AirplaneDAOImpl();
 		Airplane airplane = airplaneDAO.getById(plateNumber);
 		if (airplane != null) {
 			if (airplane.getTotalNumSeatsToBook() > airplane
@@ -158,7 +175,7 @@ public class Aena {
 	private void configureAirplaneById(String plateNumber,
 			String totalNumSeats, String totalNumSeatsToBook) {
 
-		AirplaneDAO airplaneDAO = new AirplaneDAO();
+		AirplaneDAO airplaneDAO = new AirplaneDAOImpl();
 		Airplane airplane = airplaneDAO.getById(plateNumber);
 		if (airplane != null) {
 			airplane.getBoardingpasses().clear();
@@ -178,7 +195,7 @@ public class Aena {
 	}
 
 	private void getAirplaneById(String plateNumber) {
-		AirplaneDAO airplaneDAO = new AirplaneDAO();
+		AirplaneDAO airplaneDAO = new AirplaneDAOImpl();
 		Airplane airplane = airplaneDAO.getById(plateNumber);
 		if (airplane != null) {
 			System.out.println(airplane.toString());
@@ -189,7 +206,7 @@ public class Aena {
 	}
 
 	private void deleteAirplaneById(String plateNumber) {
-		AirplaneDAO airplaneDAO = new AirplaneDAO();
+		AirplaneDAO airplaneDAO = new AirplaneDAOImpl();
 		Airplane airplane = airplaneDAO.getById(plateNumber);
 		if (airplane != null) {
 			airplaneDAO.delete(airplane);
@@ -202,7 +219,7 @@ public class Aena {
 	}
 
 	public void newAirplane(String plateNumber) {
-		AirplaneDAO airplaneDAO = new AirplaneDAO();
+		AirplaneDAO airplaneDAO = new AirplaneDAOImpl();
 		Airplane airplane = airplaneDAO.getById(plateNumber);
 		if (airplane == null) {
 			airplane = new Airplane();
@@ -213,13 +230,12 @@ public class Aena {
 			System.out.println("Airplane with plateNumber '" + plateNumber
 					+ "' already exits!");
 		}
-		System.out.println(airplane.toString());
 	}
 
 	private void changeGateStatusFromAirport(String airportName,
 			String gateNumber) {
-		AirportDAO airportDAO = new AirportDAO();
-		Airport airport = airportDAO.getAirportByName(airportName);
+		AirportDAO airportDAO = new AirportDAOImpl();
+		Airport airport = airportDAO.getById(airportName);
 		if (airport != null) {
 			for (Gate gate : airport.getGates()) {
 				if (gate.getNumber() == Integer.parseInt(gateNumber)) {
@@ -235,23 +251,20 @@ public class Aena {
 		}
 	}
 
-	private void listAirportByName(String name) {
-		AirportDAO airportDAO = new AirportDAO();
-		Airport airport = airportDAO.getAirportByName(name);
+	private void getAirportById(String name) {
+		AirportDAO airportDAO = new AirportDAOImpl();
+		Airport airport = airportDAO.getById(name);
 		if (airport != null) {
 			System.out.println(airport.toString());
-			System.out.println("\t\tNum gates available = "
-					+ airport.getNumGatesAvailable() + " ## "
-					+ airport.getGatesAvailable());
-			System.out.println("\t\tNum gates no available = "
-					+ airport.getNumGatesNoAvailable() + " ## "
-					+ airport.getGatesNoAvailable());
+		} else {
+			System.out.println("Airport with name '" + name
+					+ "' not found!");
 		}
 	}
 
 	private void addGateToAirport(String name) {
-		AirportDAO airportDAO = new AirportDAO();
-		Airport airport = airportDAO.getAirportByName(name);
+		AirportDAO airportDAO = new AirportDAOImpl();
+		Airport airport = airportDAO.getById(name);
 		if (airport != null) {
 			Gate newgate = new Gate();
 			newgate.setIdAirport(airport.getIdAirport());
@@ -259,74 +272,69 @@ public class Aena {
 			newgate.setNumber(airport.getGates().size() + 1);
 			if (airport.getGates().add(newgate)) {
 				airportDAO.update(airport);
+				System.out.println(airport.toString());
 			}
+		} else {
+			System.out.println("Airport with name '" + name
+					+ "' not found!");			
 		}
 	}
 
-	private void addAirport(String name) {
-
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		Airport airport = new Airport();
-		airport.setName(name);
-		System.out.println("IdAirport=" + airport.toString());
-		session.save(airport);
-		System.out.println("IdAirport=" + airport.toString());
-
-		Gate g1 = new Gate();
-		g1.setNumber(1);
-		g1.setIdAirport(airport.getIdAirport());
-		g1.setStatus("libre");
-
-		Gate g2 = new Gate();
-		g2.setNumber(2);
-		g2.setStatus("ocupada");
-		g2.setIdAirport(airport.getIdAirport());
-
-		List<Gate> gates = new ArrayList<Gate>();
-		gates.add(g1);
-		gates.add(g2);
-		airport.setGates(gates);
-
-		for (Gate g : gates) {
-			System.out.println("g=" + g.toString());
-			session.save(g);
+	private void deleteGateFromAirport(String name, String gate) {
+		AirportDAO airportDAO = new AirportDAOImpl();
+		Airport airport = airportDAO.getById(name);
+		if (airport != null) {
+			boolean gateDeleted = false;
+			for (Gate g : airport.getGates()) {
+				if (g.getNumber() == Integer.parseInt(gate)) {
+					if (airport.getGates().remove(g)) {
+						gateDeleted = true;
+						airportDAO.update(airport);
+						break;	
+					}
+				}
+			}
+			if (gateDeleted) {
+				System.out.println("Gate number'" + gate + "' @ Airport with name '" + name
+						+ "' deleted!");		
+			} else {
+				System.out.println("Gate number'" + gate + "' @ Airport with name '" + name
+						+ "' not found!");
+			}
+			
+		} else {
+			System.out.println("Airport with name '" + name
+					+ "' not found!");			
 		}
-		session.save(airport);
-
-		session.save(airport);
-		System.out.println("IdAirport=" + airport.toString());
-		// Gate g1 = new Gate();
-		// g1.setNumber(1);
-		// g1.setStatus("libre");
-		// g1.setIdAirport(airport.getIdAirport());
-		// session.save(g1);
-
-		session.getTransaction().commit();
-
+	}
+	
+	private void newAirport(String name) {
+		AirportDAO airportDAO = new AirportDAOImpl();
+		Airport airport = airportDAO.getById(name);
+		if (airport == null) {
+			airport = new Airport();
+			airport.setName(name);
+			airportDAO.update(airport);
+			System.out.println("New airport created.");
+			System.out.println(airport.toString());
+		} else {
+			System.out.println("Airport with name '" + name
+					+ "' already exits!");
+		}
 	}
 
-	private void retrieveAirplane(String id) {
-
-		Long longId = Long.parseLong(id);
-
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-
-		try {
-			Airplane airplane = (Airplane) session.load(Airplane.class, longId);
-			System.out.println("\tairplane " + airplane.toString());
-			System.out.println("\tairplane " + airplane.getPlateNumber());
-		} catch (ObjectNotFoundException onfe) {
-			System.out.println("\tairplane with id =" + id + " not found");
-		} catch (Exception e) {
-			System.out.println("\t**ERROR retrieveAirplane **: "
-					+ e.getMessage());
+	private void deleteAirport(String name) {
+		AirportDAO airportDAO = new AirportDAOImpl();
+		Airport airport = airportDAO.getById(name);
+		if (airport != null) {
+			airportDAO.delete(airport);
+			System.out.println("Airport '" + name +"' deleted.");
+		} else {
+			System.out.println("Airport with name '" + name
+					+ "' does not exits!");
 		}
-
-		session.getTransaction().commit();
 	}
-
+	
 	private void getAllAirplanes() {
 		System.out.println("** getAllAirplanes");
 
@@ -344,43 +352,15 @@ public class Aena {
 		session.getTransaction().commit();
 	}
 
-	private void listAllAirports() {
-		System.out.println("** listAllAirports");
+	private void getAllAirports() {
 
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		Criteria criteria = session.createCriteria(Airport.class);
-		List<Airport> airports = (List<Airport>) criteria.list();
-		session.getTransaction().commit();
+		AirportDAO airportDAO = new AirportDAOImpl();
+		List<Airport> airports = airportDAO.getAll();
 
 		System.out.println("\tNum airports # " + airports.size());
 		for (Airport airport : airports) {
-			System.out.println("\t\t" + airport.getName() + "("
-					+ airport.getIdAirport() + ")");
-			System.out.println("\t\tNum gates = " + airport.getGates().size());
-			System.out.println("\t\tNum gates available = "
-					+ airport.getNumGatesAvailable() + " ## "
-					+ airport.getGatesAvailable());
-			System.out.println("\t\tNum gates no available = "
-					+ airport.getNumGatesNoAvailable() + " ## "
-					+ airport.getGatesNoAvailable());
+			System.out.println("\t\t" + airport.toString());
 			System.out.println("");
 		}
 	}
-
-	private void listAllGates() {
-		System.out.println("** listAllGates");
-
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		Criteria criteria = session.createCriteria(Gate.class);
-		List<Gate> gates = (List<Gate>) criteria.list();
-		session.getTransaction().commit();
-
-		System.out.println("\tgates #" + gates.size());
-		for (Gate g : gates) {
-			System.out.println("\t" + g.toString());
-		}
-	}
-
 }

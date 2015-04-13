@@ -35,8 +35,8 @@ FOREIGN KEY(idAirport) REFERENCES airport(idAirport)
  
  INSERT INTO gate VALUES 
  	(0,1,"libre",0),
- 	(1,2,"libre",0),
- 	(2,3,"libre",0),
+ 	(1,2,"ocupada",0),
+ 	(2,3,"ocupada",0),
  	(3,4,"ocupada",0),
  	(4,1,"libre",1),
  	(5,2,"libre",1),
