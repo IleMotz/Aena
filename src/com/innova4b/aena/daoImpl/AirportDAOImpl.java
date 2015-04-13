@@ -61,19 +61,28 @@ public class AirportDAOImpl implements AirportDAO {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		
-		String hqlAirportQuery = "from Airport where name like '" + airportName + "'";
-		Query queAirport = session.createQuery(hqlAirportQuery);
-	    airports = queAirport.list();
+//		String hqlAirportQuery = "from Airport where name like '" + airportName + "'";
+//		Query queAirport = session.createQuery(hqlAirportQuery);
+//	    airports = queAirport.list();
+//		
+//	    Boolean airportFound= false;
+//	    if (airports.size() == 1) {
+//	    	airportFound= true;
+//			String hqlGateQuery = "from Gate where status like 'libre' and idAirport = " + airports.get(0).getIdAirport();
+//		    Query queGate = session.createQuery(hqlGateQuery);
+//		    gates = queGate.list();
+//	    }	
 		
-	    Boolean airportFound= false;
-	    if (airports.size() == 1) {
-	    	airportFound= true;
-			String hqlGateQuery = "from Gate where status like 'libre' and idAirport = " + airports.get(0).getIdAirport();
-		    Query queGate = session.createQuery(hqlGateQuery);
-		    gates = queGate.list();
-	    }	
+//		Query hqlGates = session.createQuery("select Airport.gates from Airport, Gate where name=:paramName and gates.status:=paramStatus");
+//		hqlGates.setString("paramName", airportName); 
+//		hqlGates.setString("paramStatus", "libre");
+//		gates= hqlGates.list(); 
+		
+	     Query hqlGates = session.createQuery("FROM Gate AS g INNER JOIN g.gates "
+	                + "AS a WHERE m.motherId=4 and c.mother.motherId=4");
+		
 		session.getTransaction().commit();
-		
+		boolean airportFound = true; 
 		if (airportFound) {
 			for(Gate gate : gates) {
 				message += gate.getNumber() + " # ";

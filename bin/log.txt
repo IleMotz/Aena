@@ -116,6 +116,12 @@ Session 13: Abril 13, 2015: 0.5 horas
 ------------------------
 *.- Añadir diagrama UML a proyecto
 
+Session 14: Abril 13, 2015: 1.0 horas
+------------------------
+*.- Completar diagrama UML del proyecto
+*.- Comprobar métodos de los elementos pojo persistentes.
+*.- Atasco: no hay forma de darle la vuelta a la HQL;
+
 ------------------------
 THINGS TO DO:
 	*.- añadir consulta HQL.
