@@ -73,8 +73,8 @@ public class Airplane implements Serializable {
 		return Boardingpasses;
 	}
 
-	public void setBoardingpasses(List<Boardingpass> Boardingpasses) {
-		this.Boardingpasses = Boardingpasses;
+	public void setBoardingpasses(List<Boardingpass> boardingpasses) {
+		this.Boardingpasses = boardingpasses;
 	}
 
 	@Override
