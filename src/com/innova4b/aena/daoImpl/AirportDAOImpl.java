@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 
 import com.innova4b.aena.dao.AirportDAO;
 import com.innova4b.aena.persistent.Airport;
@@ -49,4 +51,72 @@ public class AirportDAOImpl implements AirportDAO {
 		session.delete(airport);
 		session.getTransaction().commit();		
 	}
+
+	@Override
+	public String gatesAvailableHQL(String airportName) {
+		List<Airport> airports = null;
+		List<Gate> gates = null;
+		String message = "Gates available @ " + airportName + ": " ;
+		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		
+		String hqlAirportQuery = "from Airport where name like '" + airportName + "'";
+		Query queAirport = session.createQuery(hqlAirportQuery);
+	    airports = queAirport.list();
+		
+	    Boolean airportFound= false;
+	    if (airports.size() == 1) {
+	    	airportFound= true;
+			String hqlGateQuery = "from Gate where status like 'libre' and idAirport = " + airports.get(0).getIdAirport();
+		    Query queGate = session.createQuery(hqlGateQuery);
+		    gates = queGate.list();
+	    }	
+		session.getTransaction().commit();
+		
+		if (airportFound) {
+			for(Gate gate : gates) {
+				message += gate.getNumber() + " # ";
+			}
+		} else {
+			message += "** ERROR: airport '" + airportName + "' not found";
+		}
+		return message;
+	}
+
+	@Override
+	public String gatesAvailableCriteria(String airportName) {
+		
+		List<Gate> gates = null;
+		List<Airport> airports = null;
+		String message = "Gates available @ " + airportName + ": " ;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+				
+	    Criteria criAirport = session.createCriteria(Airport.class);
+	    criAirport = criAirport.add(Restrictions.like("name", airportName));
+	    airports = criAirport.list();
+	    
+	    Boolean airportFound= false;
+	    if (airports.size() == 1) {
+	    	airportFound= true;
+	    	Criteria criGate = session.createCriteria(Gate.class);
+	    	criGate = criGate.add(Restrictions.eq("idAirport", (long) airports.get(0).getIdAirport()));
+	    	criGate = criGate.add(Restrictions.like("status", "libre"));
+			gates = criGate.list();
+	    }	
+		session.getTransaction().commit();
+		
+		if (airportFound) {
+			for(Gate gate : gates) {
+				message += gate.getNumber() + " # ";
+			}
+		} else {
+			message += "** ERROR: airport '" + airportName + "' not found";
+		}
+		
+		return message;
+	}
+
+
 }

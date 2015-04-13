@@ -105,8 +105,21 @@ Session 11: Abril 13, 2015: 4.0 horas
 *.- Implementar DAO / DAOImpl.
 *.- Probar a añadir airport-gate y dejar la forma de ejecutar preparada.
 
+Session 12: Abril 13, 2015: 3.0 horas
+------------------------
+*.- poner valores por defecto en las tablas?
+*.- airport.toString -> que muestre el número y estado de las gate.
+*.- implementar: changeGateStatusFromAirport airportName gateNumber 
+*.- implementar las siguiente consulta: Dado un aeropuerto, determinar el número de puertas de embarque disponibles. (Criteria + HQL)
+
 THINGS TO DO:
-	*.- poner valores por defecto en las tablas?
-	*.- cambiar estado de una puerta.
 	*.- añadir consulta HQL.
+	
+		a.- Dado un aeropuerto, determinar el número de puertas de embarque disponibles. 
+		b.- Dado un avión, determinar el número de asientos reservados. Este número se 
+		corresponde con el número de billetes comprados para un avión determinado. 
+		c.- Dado un avión, determinar el número de asientos ocupados. Este número se 
+		corresponde con el número de personas que están dentro de un avión determinado.
+	
+	
 	*.- diagrama UML.	

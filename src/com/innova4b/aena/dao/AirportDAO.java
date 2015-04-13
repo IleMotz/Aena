@@ -15,4 +15,6 @@ public interface AirportDAO {
 	public Airport getById(String airportName);
 	public void update(Airport airport);
 	public void delete(Airport airport);
+	public String gatesAvailableHQL(String airportName);
+	public String gatesAvailableCriteria(String airportName);
 }

@@ -29,9 +29,27 @@ public class Airport implements Serializable {
 	public List<Gate> getGates() {return gates;}
 	public void setGates(List<Gate> gates) {this.gates = gates;}
 	
-	public void addGate(Gate gate) {
-		gates.add(gate);
+	private String getGateStatus() {
+		String gatesAvailable = "";
+		String gatesNotAvailable = "";
+		int numGatesAvailable = 0;
+		int numGatesNotAvailable = 0;
+		for (Gate gate : this.gates) {
+			if ("libre".equalsIgnoreCase(gate.getStatus())) {
+				numGatesAvailable ++;
+				gatesAvailable += gate.getNumber() + " # ";
+			} else {
+				numGatesNotAvailable ++;
+				gatesNotAvailable += gate.getNumber() + " # ";
+			}
+		}
+		return "\r\n\t\t gatesAvailable= " + numGatesAvailable + " -> " + gatesAvailable + "\r\n" + 
+				"\r\n\t\t gatesNotAvailable= " + numGatesNotAvailable + " -> " + gatesNotAvailable;
 	}
+	
+//	public void addGate(Gate gate) {
+//		gates.add(gate);
+//	}
 	
 	public int getNumGatesAvailable() {
 		numGatesAvailable = 0;
@@ -83,6 +101,6 @@ public class Airport implements Serializable {
 	public void setNumGatesNoAvailable(int numGatesNoAvailable) {this.numGatesNoAvailable = numGatesNoAvailable;}
 	
 	@Override
-	public String toString() {return "Airport [idAirport=" + idAirport + ", name=" + name + ", numGates=" + gates.size() + "]";}
+	public String toString() {return "Airport [idAirport=" + idAirport + ", name=" + name + ", numGates=" + gates.size() + ", getGateStatus=" + getGateStatus() + "]";}
 		
 }

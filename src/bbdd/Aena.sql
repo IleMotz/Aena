@@ -15,7 +15,7 @@ plateNumber varchar(45)
  
 CREATE TABLE airport (
 idAirport int,
-name varchar(45),
+name varchar(45) default 'n/d',
 PRIMARY KEY(idAirport)
  );
  
@@ -26,8 +26,8 @@ SELECT * FROM airport;
 
 CREATE TABLE gate (
 idGate int,
-number int,
-status varchar(45),
+number int default '-1',
+status varchar(45) default 'n/d',
 idAirport int,
 PRIMARY KEY(idGate),
 FOREIGN KEY(idAirport) REFERENCES airport(idAirport)
@@ -49,16 +49,16 @@ FOREIGN KEY(idAirport) REFERENCES airport(idAirport)
  	FROM airport, gate 
  	WHERE airport.idAirport = gate.idAirport; 
  
- 	ALTER TABLE airplane ADD COLUMN totalNumSeats int NOT NULL AFTER plateNumber;
- 	ALTER TABLE airplane ADD COLUMN totalNumSeatsToBook int NOT NULL AFTER plateNumber;
-	ALTER TABLE airplane ADD COLUMN numSeatsConfirmed int NOT NULL AFTER plateNumber;
-	ALTER TABLE airplane ADD COLUMN numSeatsBooked int NOT NULL AFTER plateNumber;
+ 	ALTER TABLE airplane ADD COLUMN totalNumSeats int NOT NULL default '-1' AFTER plateNumber;
+ 	ALTER TABLE airplane ADD COLUMN totalNumSeatsToBook int NOT NULL default '-1' AFTER plateNumber;
+	ALTER TABLE airplane ADD COLUMN numSeatsConfirmed int NOT NULL default '-1' AFTER plateNumber;
+	ALTER TABLE airplane ADD COLUMN numSeatsBooked int NOT NULL default '-1' AFTER plateNumber;
  		
 CREATE TABLE boardingpass (
 idboardingpass int,
 idAirplane int,
-code varchar(45) default '',
-name varchar(45) default '',
+code varchar(45) default 'n/d',
+name varchar(45) default 'n/d',
 boarded boolean default false,
 PRIMARY KEY(idboardingpass),
 FOREIGN KEY(idAirplane) REFERENCES airplane(idAirplane)

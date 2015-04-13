@@ -106,7 +106,32 @@ public class Aena {
 					&& ("changeGateStatusFromAirport".equalsIgnoreCase(args[0]))) {
 				aena.changeGateStatusFromAirport(args[1], args[2]);
 			}
+			
+			//
+			// Consultas
+			//
+			
+			// a Dado un aeropuerto, determinar el número de puertas de embarque disponibles. 
+			if ((args.length == 3)
+					&& ("gatesAvailableAtAirport".equalsIgnoreCase(args[0]))) {
+				aena.gatesAvailableAtAirport(args[1], args[2]);
+			}
+			
+			
 		}
+	}
+
+	private void gatesAvailableAtAirport(String airportName, String metodo) {
+		
+		AirportDAO airportDAO = new AirportDAOImpl();
+		String gatesStatus ="n/d";
+		if ("HQL".equalsIgnoreCase(metodo)) {
+			gatesStatus = airportDAO.gatesAvailableHQL(airportName);
+		} else {
+			gatesStatus = airportDAO.gatesAvailableCriteria(airportName);
+		}
+		System.out.println("gatesAvailableAtAirport" + " " + airportName + " " + metodo);
+		System.out.println(gatesStatus);
 	}
 
 	private void confirmSeatAtAirplaneById(String plateNumber) {
@@ -237,6 +262,7 @@ public class Aena {
 		AirportDAO airportDAO = new AirportDAOImpl();
 		Airport airport = airportDAO.getById(airportName);
 		if (airport != null) {
+			boolean gateUpdated = false;
 			for (Gate gate : airport.getGates()) {
 				if (gate.getNumber() == Integer.parseInt(gateNumber)) {
 					if ("libre".equalsIgnoreCase(gate.getStatus())) {
@@ -244,10 +270,21 @@ public class Aena {
 					} else {
 						gate.setStatus("libre");
 					}
+					gateUpdated = true;
 					break;
 				}
 			}
+			if (gateUpdated) {
+				airportDAO.update(airport);
+				System.out.println("Gate number'" + gateNumber + "' @ Airport with name '" + airportName  + "' status changed.");
+				System.out.println(airport.toString());
+			} else {
+				System.out.println("Gate number'" + gateNumber + "' not found @ Airport with name '" + airportName  + "'");
+			}
 			airportDAO.update(airport);
+		} else {
+			System.out.println("Airport with name '" + airportName
+					+ "' not found!");
 		}
 	}
 
@@ -272,7 +309,10 @@ public class Aena {
 			newgate.setNumber(airport.getGates().size() + 1);
 			if (airport.getGates().add(newgate)) {
 				airportDAO.update(airport);
+				System.out.println("Gate number'" + newgate.getNumber() + "' added to Airport with name '" + name  + "'");	
 				System.out.println(airport.toString());
+			} else {
+				System.out.println("Gate number'" + newgate.getNumber() + "' not added to Airport with name '" + name  + "'");
 			}
 		} else {
 			System.out.println("Airport with name '" + name
@@ -358,8 +398,9 @@ public class Aena {
 		List<Airport> airports = airportDAO.getAll();
 
 		System.out.println("\tNum airports # " + airports.size());
+		System.out.println("");
 		for (Airport airport : airports) {
-			System.out.println("\t\t" + airport.toString());
+			System.out.println("\t" + airport.toString());
 			System.out.println("");
 		}
 	}
