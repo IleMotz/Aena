@@ -10,7 +10,6 @@ public class Gate implements Serializable {
 	private Long idAirport;
 	private int number;
 	private String status;
-	// private Airport airport;
 			
 	public Gate(){}
 
@@ -23,8 +22,6 @@ public class Gate implements Serializable {
 	public void setNumber(int number) {this.number = number;}
 	public String getStatus() {return status;}
 	public void setStatus(String status) {this.status = status;}
-//	public Airport getAirport() {return airport;}
-//	public void setAirport(Airport airport) {this.airport = airport;}
 	
 	@Override
 	public String toString() {

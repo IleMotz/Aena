@@ -4,23 +4,14 @@
 	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="com.innova4b.aena.persistent">
-
 	<class name="Gate" table="gate">
-	
 		<id name="idGate" column="idGate">
 			<generator class="increment" />
 		</id>
-		
-<!-- 		<property name="idAirport" insert="false" update="false" /> -->
-<!-- 		<property name="number" insert="false" update="false" /> -->
-		
-		<property name="idAirport"  />
+		<property name="idAirport" />
 		<property name="number" />
-		
 		<property name="status" />
-			
 	</class>
-	
 </hibernate-mapping>
 
 

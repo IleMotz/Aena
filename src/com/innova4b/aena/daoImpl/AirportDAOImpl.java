@@ -1,11 +1,15 @@
 package com.innova4b.aena.daoImpl;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 
@@ -23,7 +27,7 @@ public class AirportDAOImpl implements AirportDAO {
 		session.getTransaction().commit();
 		return airports;
 	}
-	
+
 	public Airport getById(String airportName) {
 		Airport airport = null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -42,90 +46,65 @@ public class AirportDAOImpl implements AirportDAO {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		session.merge(airport);
-		session.getTransaction().commit();	
+		session.getTransaction().commit();
 	}
 
 	public void delete(Airport airport) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		session.delete(airport);
-		session.getTransaction().commit();		
+		session.getTransaction().commit();
 	}
 
 	@Override
 	public String gatesAvailableHQL(String airportName) {
-		List<Airport> airports = null;
+
 		List<Gate> gates = null;
-		String message = "Gates available @ " + airportName + ": " ;
-		
+		String message = "Gates available @ " + airportName + ": ";
+
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		
-//		String hqlAirportQuery = "from Airport where name like '" + airportName + "'";
-//		Query queAirport = session.createQuery(hqlAirportQuery);
-//	    airports = queAirport.list();
-//		
-//	    Boolean airportFound= false;
-//	    if (airports.size() == 1) {
-//	    	airportFound= true;
-//			String hqlGateQuery = "from Gate where status like 'libre' and idAirport = " + airports.get(0).getIdAirport();
-//		    Query queGate = session.createQuery(hqlGateQuery);
-//		    gates = queGate.list();
-//	    }	
-		
-//		Query hqlGates = session.createQuery("select Airport.gates from Airport, Gate where name=:paramName and gates.status:=paramStatus");
-//		hqlGates.setString("paramName", airportName); 
-//		hqlGates.setString("paramStatus", "libre");
-//		gates= hqlGates.list(); 
-		
-	     Query hqlGates = session.createQuery("FROM Gate AS g INNER JOIN g.gates "
-	                + "AS a WHERE m.motherId=4 and c.mother.motherId=4");
-		
+
+		String query = "FROM Gate WHERE " + "status like 'libre' AND "
+				+ "idAirport IN (FROM Airport WHERE name like '" + airportName
+				+ "')";
+
+		Query hqlGates = session.createQuery(query);
+		gates = hqlGates.list();
 		session.getTransaction().commit();
-		boolean airportFound = true; 
-		if (airportFound) {
-			for(Gate gate : gates) {
-				message += gate.getNumber() + " # ";
-			}
-		} else {
-			message += "** ERROR: airport '" + airportName + "' not found";
+		
+		message += gates.size() + " -> ";
+		for (Gate gate : gates) {
+			System.out.println(gate.toString());
+			message += gate.getNumber() + " # ";
 		}
 		return message;
 	}
 
 	@Override
 	public String gatesAvailableCriteria(String airportName) {
-		
+
 		List<Gate> gates = null;
-		List<Airport> airports = null;
-		String message = "Gates available @ " + airportName + ": " ;
+		String message = "Gates available @ " + airportName + ": ";
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-				
-	    Criteria criAirport = session.createCriteria(Airport.class);
-	    criAirport = criAirport.add(Restrictions.like("name", airportName));
-	    airports = criAirport.list();
-	    
-	    Boolean airportFound= false;
-	    if (airports.size() == 1) {
-	    	airportFound= true;
-	    	Criteria criGate = session.createCriteria(Gate.class);
-	    	criGate = criGate.add(Restrictions.eq("idAirport", (long) airports.get(0).getIdAirport()));
-	    	criGate = criGate.add(Restrictions.like("status", "libre"));
-			gates = criGate.list();
-	    }	
+
+		DetachedCriteria dcAirport = DetachedCriteria.forClass(Airport.class);
+		dcAirport.setProjection(Projections.property("idAirport"));
+		dcAirport.add(Restrictions.like("name", airportName));
+		
+		Criteria criGate = session.createCriteria(Gate.class);
+		criGate = criGate.add(Restrictions.and(Restrictions.like("status", "libre"), Property.forName("idAirport").in(dcAirport)));
+					
+		gates = criGate.list();
 		session.getTransaction().commit();
-		
-		if (airportFound) {
-			for(Gate gate : gates) {
-				message += gate.getNumber() + " # ";
-			}
-		} else {
-			message += "** ERROR: airport '" + airportName + "' not found";
+		message += gates.size() + " -> ";
+		for (Gate gate : gates) {
+			System.out.println(gate.toString());
+			message += gate.getNumber() + " # ";
 		}
-		
+
 		return message;
 	}
-
 
 }

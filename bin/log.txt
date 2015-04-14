@@ -122,7 +122,12 @@ Session 14: Abril 13, 2015: 1.0 horas
 *.- Comprobar métodos de los elementos pojo persistentes.
 *.- Atasco: no hay forma de darle la vuelta a la HQL;
 
+Session 15: Abril 14, 2015: 2.0 horas
 ------------------------
+*.- SIN SALIDA: Modificar pojo Gate para acomodar a un Airport. El mapping del Gate tb habrá que modificarlo.
+*.- Dejamos los POJO's y los mappings en paz!
+*.- Implementar JOIN HQL y DetatechedCriteria!!! FUNCIONA!!!!
+
 THINGS TO DO:
 	*.- añadir consulta HQL.
 	
