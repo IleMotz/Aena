@@ -135,6 +135,11 @@ Session 16: Abril 15, 2015: 1.5 horas
 		
 *.- implementar: Dado un avión, determinar el número de asientos ocupados. Este número se 
 		corresponde con el número de personas que están dentro de un avión determinado.
+		
+Session 17: Abril 15, 2015: 2.5 horas
+------------------------
+*.- Actualizar diagrama E-R.
+*.- Incorporar fichero odt / pdf con una explicación del proyecto.
 
 THINGS TO DO:
 	
