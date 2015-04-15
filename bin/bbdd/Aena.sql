@@ -9,7 +9,7 @@ idAirplane int PRIMARY KEY,
 plateNumber varchar(45)
  );
  
- INSERT INTO airplane VALUES (0,"QWE-9874"), (1,"ASD-3214");
+ INSERT INTO airplane VALUES (0,"QWE-9874"), (1,"ASD-3214"), (2,"DAS-4123");
  
  SELECT * FROM airplane;
  
@@ -63,3 +63,8 @@ boarded boolean default false,
 PRIMARY KEY(idboardingpass),
 FOREIGN KEY(idAirplane) REFERENCES airplane(idAirplane)
  );
+ 
+ INSERT INTO boardingpass VALUES (1,2,"test boardingpass","test name",true),
+ 								 (2,2,"test boardingpass","test name",false),
+ 								 (3,2,"test boardingpass","test name",false),
+ 								 (4,2,"test boardingpass","test name",false);

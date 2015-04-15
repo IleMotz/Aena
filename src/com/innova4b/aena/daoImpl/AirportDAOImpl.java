@@ -18,7 +18,7 @@ import com.innova4b.aena.persistent.Airport;
 import com.innova4b.aena.persistent.Gate;
 
 public class AirportDAOImpl implements AirportDAO {
-
+	@Override
 	public List<Airport> getAll() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
@@ -27,7 +27,7 @@ public class AirportDAOImpl implements AirportDAO {
 		session.getTransaction().commit();
 		return airports;
 	}
-
+	@Override
 	public Airport getById(String airportName) {
 		Airport airport = null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -41,14 +41,14 @@ public class AirportDAOImpl implements AirportDAO {
 		}
 		return airport;
 	}
-
+	@Override
 	public void update(Airport airport) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		session.merge(airport);
 		session.getTransaction().commit();
 	}
-
+	@Override
 	public void delete(Airport airport) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
@@ -60,15 +60,13 @@ public class AirportDAOImpl implements AirportDAO {
 	public String gatesAvailableHQL(String airportName) {
 
 		List<Gate> gates = null;
+		
 		String message = "Gates available @ " + airportName + ": ";
-
+		String query = "FROM Gate WHERE " + "status like 'libre' AND "
+							+ "idAirport IN (FROM Airport WHERE name like '" + airportName+ "')";
+		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-
-		String query = "FROM Gate WHERE " + "status like 'libre' AND "
-				+ "idAirport IN (FROM Airport WHERE name like '" + airportName
-				+ "')";
-
 		Query hqlGates = session.createQuery(query);
 		gates = hqlGates.list();
 		session.getTransaction().commit();

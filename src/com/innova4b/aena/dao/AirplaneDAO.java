@@ -10,10 +10,10 @@ import org.hibernate.criterion.Restrictions;
 import com.innova4b.aena.persistent.Airplane;
 
 public interface AirplaneDAO {
-
 	public List<Airplane> getAll();	
 	public Airplane getById(String plateNumber);
 	public void update(Airplane airplane);
 	public void delete(Airplane airplane) ;
-	
+	public String numBoardingpassesHQL(String plateNumber, boolean boarded);
+	public String numBoardingpassesCriteria(String plateNumber, boolean boarded);
 }

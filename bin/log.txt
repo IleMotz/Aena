@@ -128,14 +128,15 @@ Session 15: Abril 14, 2015: 2.0 horas
 *.- Dejamos los POJO's y los mappings en paz!
 *.- Implementar JOIN HQL y DetatechedCriteria!!! FUNCIONA!!!!
 
-THINGS TO DO:
-	*.- añadir consulta HQL.
-	
-		a.- Dado un aeropuerto, determinar el número de puertas de embarque disponibles. 
-		b.- Dado un avión, determinar el número de asientos reservados. Este número se 
-		corresponde con el número de billetes comprados para un avión determinado. 
-		c.- Dado un avión, determinar el número de asientos ocupados. Este número se 
+Session 16: Abril 15, 2015: 1.5 horas
+------------------------
+*.- implementar: Dado un avión, determinar el número de asientos reservados. Este número se 
+		corresponde con el número de billetes comprados para un avión determinado.
+		
+*.- implementar: Dado un avión, determinar el número de asientos ocupados. Este número se 
 		corresponde con el número de personas que están dentro de un avión determinado.
+
+THINGS TO DO:
 	
-	
+
 	*.- diagrama UML.	
