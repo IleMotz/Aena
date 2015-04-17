@@ -4,21 +4,10 @@
 	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="com.innova4b.aena.persistent">
-
 	<class name="Airport" table="airport">
-		
 		<id name="idAirport" column="idAirport">
 			<generator class="increment" />
 		</id>
-	
-<!--         <set name="gates" table="gate" lazy="false"> -->
-<!--             <key> -->
-<!--                 <column name="idAirport" not-null="true"></column> -->
-<!--             </key> -->
-<!--             <one-to-many class="Gate"/> -->
-<!--         </set> -->
-
-<!--         <list name="gates" access="field" cascade="all"> -->
 		<bag name="gates" table="gate" cascade="all-delete-orphan" inverse="false" lazy="false" >
 			<key>
 				<column name="idAirport" not-null="true">
@@ -26,9 +15,7 @@
 			</key>
 			<one-to-many class="Gate"></one-to-many>
 		</bag>
-
-		<property name="name" />
-				
+		<property name="name" />	
 	</class>
 </hibernate-mapping>
 

@@ -25,7 +25,7 @@ Session 2: Abril 2, 2015: 2 horas
 ------------------------
 *.- Crear tabla airport (según diseño del examen)
 *.- Crear tabla gate (según diseño de examen)
-*.- Modificar tabla/objeto Airport: campos en ingles (matricula -> plateNumber)
+*.- Modificar tabla/objeto Airport: campos en ingles (nombre -> name)
 *.- Crear objeto Airport.
 *.- Mapear objeto Airport.
 *.- Crear objeto Gate.

@@ -4,12 +4,10 @@
 	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="com.innova4b.aena.persistent">
-
 	<class name="Airplane" table="airplane">
 		<id name="idAirplane" column="idAirplane">
 			<generator class="increment" />
 		</id>
-
 		<bag name="boardingpasses" table="boardingpass" cascade="all-delete-orphan" inverse="false" lazy="false" >
 			<key>
 				<column name="idAirplane" not-null="true">
@@ -17,7 +15,6 @@
 			</key>
 			<one-to-many class="Boardingpass"></one-to-many>
 		</bag>
-		
 		<property name="plateNumber" />
 		<property name="numSeatsBooked" />
 		<property name="numSeatsConfirmed" />
